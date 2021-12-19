@@ -1,20 +1,52 @@
-﻿// Human.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
-//
+#include "Human.h"
 
-#include <iostream>
-
-int main()
+Human::Human(const char* name, const Date& birthday)																				
 {
-    std::cout << "Hello World!\n";
+	this->name = new char[strlen(name) + 1];
+	strcpy_s(this->name, strlen(name) + 1, name);
+	this->birthday = Date(birthday);
 }
 
-// Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
-// Отладка программы: F5 или меню "Отладка" > "Запустить отладку"
+Human::Human() :Human("Undefined", Date())
+{
+}
 
-// Советы по началу работы 
-//   1. В окне обозревателя решений можно добавлять файлы и управлять ими.
-//   2. В окне Team Explorer можно подключиться к системе управления версиями.
-//   3. В окне "Выходные данные" можно просматривать выходные данные сборки и другие сообщения.
-//   4. В окне "Список ошибок" можно просматривать ошибки.
-//   5. Последовательно выберите пункты меню "Проект" > "Добавить новый элемент", чтобы создать файлы кода, или "Проект" > "Добавить существующий элемент", чтобы добавить в проект существующие файлы кода.
-//   6. Чтобы снова открыть этот проект позже, выберите пункты меню "Файл" > "Открыть" > "Проект" и выберите SLN-файл.
+Human::Human(const Human& human) : Human(human.name, human.birthday)
+{
+
+}
+
+void Human::setName(const char* name)
+{
+	if (name != nullptr)
+	{
+		if (this->name)
+		{
+			delete[] this->name;
+		}
+		this->name = new char[strlen(name) + 1];
+		strcpy_s(this->name, strlen(name) + 1, name);
+	}
+}
+
+void Human::setBirthday(const Date& date)
+{
+	this->birthday.setDay(date.getDay());
+	this->birthday.setMonth(date.getMonth());
+	this->birthday.setYear(date.getYear());
+}
+
+Human::~Human()
+{
+	if (this->name)
+	{
+		delete[] this->name;
+	}
+}
+
+std::ostream& operator<<(std::ostream& out, const Human& human)
+{
+	out << human.name << "\n";
+	out << "Birthday: " << human.birthday << "\n";
+	return out;
+}
