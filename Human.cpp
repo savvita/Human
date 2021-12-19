@@ -36,14 +36,6 @@ void Human::setBirthday(const Date& date)
 	this->birthday.setYear(date.getYear());
 }
 
-Human::~Human()
-{
-	if (this->name)
-	{
-		delete[] this->name;
-	}
-}
-
 std::ostream& operator<<(std::ostream& out, const Human& human)
 {
 	out << human.name << "\n";

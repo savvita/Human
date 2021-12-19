@@ -4,7 +4,7 @@
 
 class Human
 {
-private:
+protected:
 	char* name;
 	Date birthday;
 
@@ -29,7 +29,5 @@ public:
 
 	//operator <<
 	friend std::ostream& operator<<(std::ostream& out, const Human& human);
-
-	~Human();
 };
 
